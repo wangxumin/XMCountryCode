@@ -76,6 +76,7 @@
     [leftButton addTarget:self action:@selector(dismissAction) forControlEvents:UIControlEventTouchUpInside];
     self.title = @"选择国家和地区";
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:19]}];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor darkGrayColor]];
 }
 
 - (void)dismissAction{
@@ -174,17 +175,7 @@
 }
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController{
-    typeof(self) weakSelf = self;
-    if (searchController.searchBar.isFirstResponder) {
-        [UIView animateWithDuration:0.2 animations:^{
-            CGRect frame = CGRectMake(0, 24, weakSelf.tableView.bounds.size.width, weakSelf.view.bounds.size.height - 24);
-            weakSelf.tableView.frame = frame;
-        }];
-    }else{
-        [UIView animateWithDuration:0.2 animations:^{
-            CGRect frame = CGRectMake(0, 64, weakSelf.tableView.bounds.size.width, weakSelf.view.bounds.size.height - 64);
-            weakSelf.tableView.frame = frame;
-        }];
+    if (!searchController.active) {
         [self.searchResultArray removeAllObjects];
         [self.resultTableView reloadData];
     }
